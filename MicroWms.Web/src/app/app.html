@@ -1,0 +1,85 @@
+
+<div class="page">
+  <header class="header">
+    <h1>MicroWms</h1>
+    <span>Система управления складом</span>
+  </header>
+
+  <main class="content">
+    <div class="content-header">
+      <h2>Номенклатура</h2>
+
+      <button class="primary-button"
+              (click)="showForm.set(!showForm())">
+        Добавить товар
+      </button>
+    </div>
+
+    @if (showForm()) {
+      <div class="form-panel">
+        <h3>Новый товар</h3>
+
+        <div class="form-field">
+          <label>Артикул</label>
+          <input
+            type="text"
+            [(ngModel)]="article"
+            placeholder="Например, ART-002">
+        </div>
+
+        <div class="form-field">
+          <label>Наименование</label>
+          <input
+            type="text"
+            [(ngModel)]="name"
+            placeholder="Название товара">
+        </div>
+
+        @if (formError) {
+          <p class="error">{{ formError }}</p>
+        }
+
+        <div class="form-actions">
+          <button class="primary-button"
+                  (click)="addProduct()"
+                  [disabled]="saving()">
+            {{ saving() ? 'Сохранение...' : 'Сохранить' }}
+          </button>
+
+          <button class="secondary-button"
+                  (click)="showForm.set(false)"
+                  [disabled]="saving()">
+            Отмена
+          </button>
+        </div>
+      </div>
+    }
+
+    @if (loading()) {
+      <p>Загрузка товаров...</p>
+    } @else if (error()) {
+      <p class="error">{{ error() }}</p>
+    } @else {
+      <table>
+        <thead>
+          <tr>
+            <th>Артикул</th>
+            <th>Наименование</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (product of products(); track product.id) {
+            <tr>
+              <td>{{ product.article }}</td>
+              <td>{{ product.name }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      @if (products().length === 0) {
+        <p>Товары отсутствуют</p>
+      }
+    }
+  </main>
+</div>
