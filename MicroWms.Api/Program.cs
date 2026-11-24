@@ -19,7 +19,7 @@ public partial class Program
             options.AddPolicy("Angular", policy =>
             {
                 policy
-                    .WithOrigins("http://192.168.1.186:4200")
+                    .WithOrigins("http://192.168.1.186:4200", "http://localhost:4200")
                     .AllowAnyHeader()
                     .AllowAnyMethod();
             });
