@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MicroWms.Api/MicroWms.Api.csproj" />
+  <Project Path="MicroWms.Domain/MicroWms.Domain.csproj" />
+</Solution>
